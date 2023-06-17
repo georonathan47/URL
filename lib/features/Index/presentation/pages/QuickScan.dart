@@ -41,7 +41,7 @@ class _QuickScanState extends State<QuickScan> {
           emphasisText(
             'Enter the URL of the website you want to scan below:',
             fontWeight: FontWeight.w600,
-            size: 18,
+            size: 16,
           ),
           addVertical(15),
           buildTextField(
@@ -63,7 +63,9 @@ class _QuickScanState extends State<QuickScan> {
                   shape: const StadiumBorder(),
                 ),
                 onPressed: () async {
+
                   dynamic result = await Api().scan(addressController.text);
+
                   print(result);
 
                   setState(() {
@@ -99,21 +101,21 @@ class _QuickScanState extends State<QuickScan> {
                   }
                   loading = false;
                 },
-                child: subText('Scan Now', size: 18),
+                child: subText('Scan Now', size: 16),
               ),
             ),
           ),
           addVertical(25),
-          Center(child: emphasisText('Scan Results', fontWeight: FontWeight.w600, size: 18)),
+          Center(child: emphasisText('Scan Results', fontWeight: FontWeight.w600, size: 16)),
           addVertical(15),
           Row(
             children: [
-              emphasisText('Outcome: ', fontWeight: FontWeight.w600, size: 18),
+              emphasisText('Outcome: ', fontWeight: FontWeight.w600, size: 16),
               addHorizontal(10),
               subTextRaleway(
                 success == false ? "Failed" : "Successful",
                 color: success == true ? successful[400] : error[400],
-                size: 18,
+                size: 16,
               ),
             ],
           ),
@@ -121,14 +123,14 @@ class _QuickScanState extends State<QuickScan> {
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              emphasisText('Message: ', fontWeight: FontWeight.w600, size: 18),
+              emphasisText('Message: ', fontWeight: FontWeight.w600, size: 16),
               addHorizontal(10),
               Expanded(
                 child: subTextRaleway(
                   // message,
                   message ?? "No message",
                   color: message != null ? successful[400] : error[400],
-                  size: 18,
+                  size: 16,
                 ),
               ),
             ],
@@ -136,108 +138,108 @@ class _QuickScanState extends State<QuickScan> {
           addVertical(15),
           Row(
             children: [
-              emphasisText('DNS Valid: ', fontWeight: FontWeight.w600, size: 18),
+              emphasisText('DNS Valid: ', fontWeight: FontWeight.w600, size: 16),
               addHorizontal(10),
               subTextRaleway(
                 dnsValid == false ? "False" : "True",
                 color: dnsValid == false ? error[400] : successful[400],
-                size: 18,
+                size: 16,
               ),
             ],
           ),
           addVertical(15),
           Row(
             children: [
-              emphasisText('Spamming: ', fontWeight: FontWeight.w600, size: 18),
+              emphasisText('Spamming: ', fontWeight: FontWeight.w600, size: 16),
               addHorizontal(10),
               subTextRaleway(
                 spamming == true ? "True" : "False",
                 color: spamming == true ? error[400] : successful[400],
-                size: 18,
+                size: 16,
               ),
             ],
           ),
           addVertical(15),
           Row(
             children: [
-              emphasisText('Suspicious: ', fontWeight: FontWeight.w600, size: 18),
+              emphasisText('Suspicious: ', fontWeight: FontWeight.w600, size: 16),
               addHorizontal(10),
               subTextRaleway(
                 suspicious == true ? "True" : "False",
                 color: suspicious == true ? error[400] : successful[400],
-                size: 18,
+                size: 16,
               ),
             ],
           ),
           addVertical(15),
           Row(
             children: [
-              emphasisText('IP Address: ', fontWeight: FontWeight.w600, size: 18),
+              emphasisText('IP Address: ', fontWeight: FontWeight.w600, size: 16),
               addHorizontal(10),
               subTextRaleway(
                 ipaddress ?? "No available IP Address!",
                 color: message != null ? successful[400] : error[400],
-                size: 18,
+                size: 16,
               ),
             ],
           ),
           addVertical(15),
           Row(
             children: [
-              emphasisText('Domain Rank: ', fontWeight: FontWeight.w600, size: 18),
+              emphasisText('Domain Rank: ', fontWeight: FontWeight.w600, size: 16),
               addHorizontal(10),
               subTextRaleway(
                 domainRank == null ? "No domain scanned!" : domainRank.toString(),
                 color: successful[400],
-                size: 18,
+                size: 16,
               ),
             ],
           ),
           addVertical(15),
           Row(
             children: [
-              emphasisText('Phishing: ', fontWeight: FontWeight.w600, size: 18),
+              emphasisText('Phishing: ', fontWeight: FontWeight.w600, size: 16),
               addHorizontal(10),
               subTextRaleway(
                 phishing == true ? "True" : "False",
                 color: phishing == true ? error[400] : successful[400],
-                size: 18,
+                size: 16,
               ),
             ],
           ),
           addVertical(15),
           Row(
             children: [
-              emphasisText('Malware: ', fontWeight: FontWeight.w600, size: 18),
+              emphasisText('Malware: ', fontWeight: FontWeight.w600, size: 16),
               addHorizontal(10),
               subTextRaleway(
                 malware == true ? "True" : "False",
                 color: malware == true ? error[400] : successful[400],
-                size: 18,
+                size: 16,
               ),
             ],
           ),
           addVertical(15),
           Row(
             children: [
-              emphasisText('Adult Content: ', fontWeight: FontWeight.w600, size: 18),
+              emphasisText('Adult Content: ', fontWeight: FontWeight.w600, size: 16),
               addHorizontal(10),
               subTextRaleway(
                 adult == true ? "True" : "False",
                 color: adult == true ? error[400] : successful[400],
-                size: 18,
+                size: 16,
               ),
             ],
           ),
           addVertical(15),
           Row(
             children: [
-              emphasisText('Safe Scan: ', fontWeight: FontWeight.w600, size: 18),
+              emphasisText('Safe Scan: ', fontWeight: FontWeight.w600, size: 16),
               addHorizontal(10),
               subTextRaleway(
                 safe == false ? "True" : "False",
                 color: safe == true ? error[400] : successful[400],
-                size: 18,
+                size: 16,
               ),
             ],
           ),
