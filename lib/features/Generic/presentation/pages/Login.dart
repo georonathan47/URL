@@ -27,7 +27,7 @@ class _LoginState extends State<Login> {
   @override
   void initState() {
     super.initState();
-    auth0 = Auth0('dev-8szuc4zu.us.auth0.com', 'i8WxlhqpqRSbjVWlliOExzvVzIqYZq23');
+    auth0 = Auth0('dev-qz5fmhy5.us.auth0.com', 'FnUovpl0nWZVjp5O9aXV0FmufXbxe1oF');
   }
 
   @override
