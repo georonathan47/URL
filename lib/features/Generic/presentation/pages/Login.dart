@@ -27,7 +27,7 @@ class _LoginState extends State<Login> {
   @override
   void initState() {
     super.initState();
-    auth0 = Auth0('dev-qz5fmhy5.us.auth0.com', 'FnUovpl0nWZVjp5O9aXV0FmufXbxe1oF');
+    auth0 = Auth0('dev-8szuc4zu.us.auth0.com', 'i8WxlhqpqRSbjVWlliOExzvVzIqYZq23');
   }
 
   @override
@@ -62,9 +62,7 @@ class _LoginState extends State<Login> {
                             onPressed: () async {
                               print('Auth0: ${auth0.toString()}');
                               final credentials = await auth0.webAuthentication().login();
-                              setState(
-                                () => _credentials = credentials,
-                              );
+                              setState(() => _credentials = credentials);
                               Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
@@ -87,9 +85,7 @@ class _LoginState extends State<Login> {
                                   SizedBox(
                                     height: 35,
                                     width: 35,
-                                    child: Image.asset(
-                                      'assets/images/google.png',
-                                    ),
+                                    child: Image.asset('assets/images/google.png'),
                                   ),
                                   addHorizontal(35),
                                   Text(
