@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "816534397676",
+    "project_id": "url-scanner-56ca6",
+    "storage_bucket": "url-scanner-56ca6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:816534397676:android:6a8f1d0790b9fdc9c8fbc9",
+        "android_client_info": {
+          "package_name": "com.example.url_scan"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "816534397676-r6bqodosg6natpaba10nljk27j9jebrr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD0AcXKL0dadJYte0d0jgxhe_92fnxbNzE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "816534397676-2djuo25m9b8kjgn0ueh2a5oka2lt153o.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "816534397676-g70aumo1d0qs3id8jckjps8umv14o8fm.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.url.scanner"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:816534397676:android:7f3928df74aaf87cc8fbc9",
+        "android_client_info": {
+          "package_name": "com.url.scanner"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "816534397676-r6bqodosg6natpaba10nljk27j9jebrr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD0AcXKL0dadJYte0d0jgxhe_92fnxbNzE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "816534397676-2djuo25m9b8kjgn0ueh2a5oka2lt153o.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "816534397676-g70aumo1d0qs3id8jckjps8umv14o8fm.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.url.scanner"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

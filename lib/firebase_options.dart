@@ -51,7 +51,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyD0AcXKL0dadJYte0d0jgxhe_92fnxbNzE',
-    appId: '1:816534397676:android:7f3928df74aaf87cc8fbc9',
+    appId: '1:816534397676:android:6a8f1d0790b9fdc9c8fbc9',
     messagingSenderId: '816534397676',
     projectId: 'url-scanner-56ca6',
     storageBucket: 'url-scanner-56ca6.appspot.com',
@@ -59,11 +59,11 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyBTV_-QcacIogZxfI9Wvvbr3zgpy25U3yQ',
-    appId: '1:816534397676:ios:32bd79bdb586ffe3c8fbc9',
+    appId: '1:816534397676:ios:5b13fb193322446cc8fbc9',
     messagingSenderId: '816534397676',
     projectId: 'url-scanner-56ca6',
     storageBucket: 'url-scanner-56ca6.appspot.com',
-    iosClientId: '816534397676-g70aumo1d0qs3id8jckjps8umv14o8fm.apps.googleusercontent.com',
-    iosBundleId: 'com.url.scanner',
+    iosClientId: '816534397676-gj5v9ka5l51b0umpff1rbmj13sa44n4f.apps.googleusercontent.com',
+    iosBundleId: 'com.example.urlScan',
   );
 }
