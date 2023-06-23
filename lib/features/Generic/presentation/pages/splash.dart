@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
@@ -10,6 +11,8 @@ class SplashScreen extends StatefulWidget {
   @override
   SplashScreenState createState() => SplashScreenState();
 }
+
+final auth = FirebaseAuth.instance.authStateChanges();
 
 class SplashScreenState extends State<SplashScreen> with SingleTickerProviderStateMixin {
   AnimationController? controller;
@@ -38,7 +41,16 @@ class SplashScreenState extends State<SplashScreen> with SingleTickerProviderSta
     controller!.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         proceed = true;
-        goToLogin();
+        // goToLogin();
+        auth.listen((User? user) {
+          if (user == null) {
+            print('User is currently signed out!');
+            goToLogin();
+          } else {
+            print('User is signed in!');
+            goToHome();
+          }
+        });
         // goToHome();
       }
     });
@@ -70,7 +82,7 @@ class SplashScreenState extends State<SplashScreen> with SingleTickerProviderSta
     // } else {
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(
-        builder: (context) => const Login(),
+        builder: (context) => const LoginScreen(),
       ),
     );
   }

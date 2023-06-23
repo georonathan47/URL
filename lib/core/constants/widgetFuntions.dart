@@ -224,3 +224,105 @@ Widget buildTextField(
     ),
   );
 }
+
+double getFontSize(BuildContext context, double fontSize) {
+  // Define your desired base font size
+  double baseFontSize = fontSize;
+
+  // Calculate the scaling factor based on the screen width
+  final screenWidth = MediaQuery.of(context).size.width;
+  final scalingFactor = screenWidth / 375; // 375 is a reference screen width
+
+  // Calculate the perfect font size by multiplying the base font size with the scaling factor
+  final perfectFontSize = baseFontSize * scalingFactor;
+
+  return perfectFontSize;
+}
+
+Text addSubTitle(
+  BuildContext context,
+  String subtitle, {
+  FontWeight? fontWeight,
+  double? fontSize,
+  Color? color,
+  double? letterSpacing,
+}) {
+  return Text(
+    subtitle,
+    style: GoogleFonts.raleway(
+      color: color,
+      fontSize: getFontSize(context, fontSize ?? 14),
+      fontWeight: fontWeight ?? FontWeight.w500,
+      letterSpacing: letterSpacing ?? 0.75,
+    ),
+  );
+}
+
+Widget buildTextField2(
+  String labelText,
+  String placeholder,
+  bool uneditable,
+  Widget icon,
+  TextEditingController controller, {
+  String? errorText,
+  bool? isName,
+  bool? isEmail,
+  bool? isPhone,
+  bool? showPassword,
+  bool? isAmount,
+  InputDecoration? inputDecoration,
+  Color? textfieldColor,
+  bool? isDarkMode,
+  Function(String)? onChanged,
+  void Function()? showPasswordContents,
+  String Function(String?)? validator,
+  int? maxLines,
+  Color? textColor,
+}) {
+  return Card(
+    child: TextFormField(
+      readOnly: uneditable ? true : false,
+      controller: controller,
+      obscureText: showPassword == false ? true : false,
+      keyboardType: isPhone == true
+          ? TextInputType.phone
+          : isAmount == true
+              ? const TextInputType.numberWithOptions(decimal: true)
+              : TextInputType.text,
+      validator: validator,
+      maxLines: maxLines ?? 1,
+      decoration: inputDecoration ??
+          InputDecoration(
+            labelText: labelText,
+            hintText: placeholder,
+            prefix: icon,
+            contentPadding: maxLines == 3 ? const EdgeInsets.all(15) : const EdgeInsets.only(left: 15),
+            errorText: errorText,
+            hintStyle: GoogleFonts.raleway(
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+              letterSpacing: 2,
+              color: textColor,
+            ),
+            labelStyle: GoogleFonts.raleway(
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+              letterSpacing: .25,
+              color: textColor,
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderSide: const BorderSide(color: backgroundColor, width: 0.5),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderSide: const BorderSide(color: backgroundColor, width: 1),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            errorBorder: OutlineInputBorder(
+              borderSide: const BorderSide(color: Colors.red, width: 1),
+              borderRadius: BorderRadius.circular(10),
+            ),
+          ),
+    ),
+  );
+}

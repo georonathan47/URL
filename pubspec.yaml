@@ -42,7 +42,8 @@ dependencies:
   equatable: ^2.0.5
   salomon_bottom_bar: ^3.3.1
   lottie: ^2.1.0
-  auth0_flutter:
+  firebase_auth: ^4.6.3
+  change_app_package_name: ^1.1.0
 
 dev_dependencies:
   flutter_test:
