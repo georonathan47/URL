@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_scan/core/constants/colors.dart';
+import 'package:url_scan/core/constants/progressDialog.dart';
 import 'package:url_scan/core/services/api.dart';
 import 'package:url_scan/features/Generic/presentation/pages/Index.dart';
 
@@ -164,17 +165,23 @@ class _LoginState extends State<LoginScreen> with SingleTickerProviderStateMixin
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: ElevatedButton(
-                    onPressed: () async {
-                      Api().signUp(emailController.text, passwordController.text);
-                      Api().login(emailController.text, passwordController.text);
-
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const Index(),
-                        ),
-                      );
-                    },
+                    onPressed: (emailController.text.isEmpty || passwordController.text.isEmpty)
+                        ? null
+                        : () async {
+                            showDialog(
+                                context: context,
+                                builder: (context) => const ProgressDialog(displayMessage: 'Verifying...'));
+                            Api().signUp(emailController.text, passwordController.text);
+                            Api().login(emailController.text, passwordController.text);
+                            await Future.delayed(const Duration(seconds: 2));
+                            Navigator.pop(context);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const Index(),
+                              ),
+                            );
+                          },
                     child: Text(
                       'LOGIN',
                       style: GoogleFonts.raleway(

@@ -1,4 +1,7 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
+import 'package:url_scan/core/constants/progressDialog.dart';
 
 import '../../../../core/constants/colors.dart';
 import '../../../../core/constants/widgetFuntions.dart';
@@ -21,7 +24,7 @@ bool? phishing = false;
 bool? malware = false;
 bool? adult = false;
 dynamic message;
-dynamic ipaddress;
+dynamic ipAddress;
 dynamic domain;
 dynamic dnsValid;
 int? domainRank;
@@ -63,10 +66,13 @@ class _QuickScanState extends State<QuickScan> {
                   shape: const StadiumBorder(),
                 ),
                 onPressed: () async {
+                  showDialog(
+                    barrierDismissible: false,
+                    context: context,
+                    builder: (context) => const ProgressDialog(displayMessage: 'Processing...'),
+                  );
 
                   dynamic result = await Api().scan(addressController.text);
-
-                  print(result);
 
                   setState(() {
                     loading = true;
@@ -74,7 +80,7 @@ class _QuickScanState extends State<QuickScan> {
                     message = result['message'];
                     dnsValid = result['dns_valid'];
                     domain = result['domain'];
-                    ipaddress = result['ip_address'];
+                    ipAddress = result['ip_address'];
                     spamming = result['spamming'];
                     suspicious = result['suspicious'];
                     unsafe = result['unsafe'];
@@ -99,7 +105,7 @@ class _QuickScanState extends State<QuickScan> {
                   if (result['dns_valid'] == true) {
                     dnsCount += 1;
                   }
-                  loading = false;
+                  Navigator.pop(context);
                 },
                 child: subText('Scan Now', size: 16),
               ),
@@ -177,7 +183,7 @@ class _QuickScanState extends State<QuickScan> {
               emphasisText('IP Address: ', fontWeight: FontWeight.w600, size: 16),
               addHorizontal(10),
               subTextRaleway(
-                ipaddress ?? "No available IP Address!",
+                ipAddress ?? "No available IP Address!",
                 color: message != null ? successful[400] : error[400],
                 size: 16,
               ),
