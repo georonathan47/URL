@@ -3,6 +3,8 @@
 import 'dart:convert';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 
 const String api_key = "LSMufeuYohAku8Nzgfevu53sxA8bAkrV";
@@ -38,7 +40,7 @@ class Api {
     }
   }
 
-  login(String email, String password) async {
+  login(String email, String password, {required BuildContext context}) async {
     try {
       final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: email,
@@ -48,10 +50,56 @@ class Api {
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         print('No user found for that email.');
+        Navigator.pop(context);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              'No user found for the provided email.',
+              style: GoogleFonts.raleway(
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+                letterSpacing: .25,
+                color: Colors.white,
+              ),
+            ),
+            backgroundColor: Colors.red[400],
+          ),
+        );
       } else if (e.code == 'wrong-password') {
         print('Wrong password provided for that user.');
+        Navigator.pop(context);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              'The provided password is incorrect!',
+              style: GoogleFonts.raleway(
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+                letterSpacing: .25,
+                color: Colors.white,
+              ),
+            ),
+            backgroundColor: Colors.red[400],
+          ),
+        );
+      } else  if (e.code == 'network-request-failed') {
+        Navigator.pop(context);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              'Please check your internet connection!',
+              style: GoogleFonts.raleway(
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+                letterSpacing: .25,
+                color: Colors.white,
+              ),
+            ),
+            backgroundColor: Colors.red[400],
+          ),
+        );
+
       }
-      return e;
     }
   }
 

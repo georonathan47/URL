@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -142,13 +144,22 @@ class _LoginFormState extends State<LoginForm> {
             width: deviceSize.width * 0.9,
             height: deviceSize.height * 0.05,
             child: ElevatedButton(
-              onPressed: () {
+              onPressed: () async {
                 showDialog(
                   context: context,
                   builder: (_) => const ProgressDialog(displayMessage: "Verifying..."),
                 );
-                Api().login(emailController.text, passwordController.text).then((value) {
+                await Future.delayed(const Duration(seconds: 1));
+                Api()
+                    .login(
+                  emailController.text,
+                  passwordController.text,
+                  context: context,
+                )
+                    .then((value) {
                   // if (value.contains(""))
+
+                  print(value);
                   UserCredential userCredentials = value;
                   print(userCredentials.user!.email);
                   if (userCredentials.user != null) {

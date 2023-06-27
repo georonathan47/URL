@@ -77,9 +77,6 @@ class SplashScreenState extends State<SplashScreen> with SingleTickerProviderSta
   }
 
   Future<void> goToLogin() async {
-    // if (customers > 0) {
-    // goToHome();
-    // } else {
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(
         builder: (context) => const LoginScreen(),
