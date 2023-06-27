@@ -43,15 +43,13 @@ class _QuickScanState extends State<QuickScan> {
         children: [
           emphasisText(
             'Enter the URL of the website you want to scan below:',
-            fontWeight: FontWeight.w600,
-            size: 16,
+            fontWeight: FontWeight.w500,
+            size: 18,
           ),
           addVertical(15),
           buildTextField(
             'Enter URL here',
             'eg: www.google.com',
-            false,
-            false,
             addressController,
           ),
           addVertical(15),
@@ -65,48 +63,50 @@ class _QuickScanState extends State<QuickScan> {
                   backgroundColor: warning,
                   shape: const StadiumBorder(),
                 ),
-                onPressed: () async {
-                  showDialog(
-                    barrierDismissible: false,
-                    context: context,
-                    builder: (context) => const ProgressDialog(displayMessage: 'Processing...'),
-                  );
+                onPressed: addressController.text.isEmpty
+                    ? null
+                    : () async {
+                        showDialog(
+                          barrierDismissible: false,
+                          context: context,
+                          builder: (context) => const ProgressDialog(displayMessage: 'Processing...'),
+                        );
 
-                  dynamic result = await Api().scan(addressController.text);
+                        dynamic result = await Api().scan(addressController.text);
 
-                  setState(() {
-                    loading = true;
-                    success = result['success'];
-                    message = result['message'];
-                    dnsValid = result['dns_valid'];
-                    domain = result['domain'];
-                    ipAddress = result['ip_address'];
-                    spamming = result['spamming'];
-                    suspicious = result['suspicious'];
-                    unsafe = result['unsafe'];
-                    phishing = result['phishing'];
-                    domainRank = result['domain_rank'];
-                    malware = result['malware'];
-                    safe = result['unsafe'];
-                    allCount += 1;
-                  });
-                  if (result['phishing'] == true) {
-                    phishingCount += 1;
-                  }
-                  if (result['suspicious'] == true) {
-                    susCount += 1;
-                  }
-                  if (result['unsafe'] != false) {
-                    safeCount += 1;
-                  }
-                  if (result['malware'] == true) {
-                    malwareCount += 1;
-                  }
-                  if (result['dns_valid'] == true) {
-                    dnsCount += 1;
-                  }
-                  Navigator.pop(context);
-                },
+                        setState(() {
+                          loading = true;
+                          success = result['success'];
+                          message = result['message'];
+                          dnsValid = result['dns_valid'];
+                          domain = result['domain'];
+                          ipAddress = result['ip_address'];
+                          spamming = result['spamming'];
+                          suspicious = result['suspicious'];
+                          unsafe = result['unsafe'];
+                          phishing = result['phishing'];
+                          domainRank = result['domain_rank'];
+                          malware = result['malware'];
+                          safe = result['unsafe'];
+                          allCount += 1;
+                        });
+                        if (result['phishing'] == true) {
+                          phishingCount += 1;
+                        }
+                        if (result['suspicious'] == true) {
+                          susCount += 1;
+                        }
+                        if (result['unsafe'] != false) {
+                          safeCount += 1;
+                        }
+                        if (result['malware'] == true) {
+                          malwareCount += 1;
+                        }
+                        if (result['dns_valid'] == true) {
+                          dnsCount += 1;
+                        }
+                        Navigator.pop(context);
+                      },
                 child: subText('Scan Now', size: 16),
               ),
             ),

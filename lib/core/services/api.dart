@@ -51,6 +51,11 @@ class Api {
       } else if (e.code == 'wrong-password') {
         print('Wrong password provided for that user.');
       }
+      return e;
     }
+  }
+
+  logout() async {
+    await FirebaseAuth.instance.signOut();
   }
 }

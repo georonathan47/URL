@@ -106,12 +106,9 @@ GestureDetector midgetButton(
 SingleChildScrollView screenBody(BuildContext context, {List<Widget>? children}) {
   return SingleChildScrollView(
     physics: const BouncingScrollPhysics(),
-    padding: const EdgeInsets.symmetric(
-      horizontal: 15,
-      vertical: 10,
-    ),
+    padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
     child: Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: children!,
     ),
   );
@@ -155,71 +152,42 @@ Text emphasisText(String? text, {double? size, Color? color, FontWeight? fontWei
 Widget buildTextField(
   String labelText,
   String placeholder,
-  bool isPasswordTextField,
-  bool uneditable,
   TextEditingController controller, {
   bool? isContact,
   bool showPassword = false,
 }) {
-  return Padding(
-    padding: const EdgeInsets.only(top: 1.5, left: 5, right: 5, bottom: 7.5),
-    child: TextFormField(
-      readOnly: uneditable ? true : false,
-      obscureText: isPasswordTextField ? true : false,
-      controller: controller,
-      keyboardType: isContact == true ? TextInputType.phone : TextInputType.text,
-      decoration: InputDecoration(
-        prefixIcon: isPasswordTextField
-            ? const Icon(
-                Icons.lock_outline_rounded,
-                color: info,
-                size: 20,
-              )
-            : isContact == true
-                ? const Icon(
-                    Icons.email_outlined,
-                    color: info,
-                    size: 20,
-                  )
-                : const Icon(
-                    Icons.alternate_email,
-                    color: info,
-                    size: 20,
-                  ),
-        suffixIcon: isPasswordTextField
-            ? IconButton(
-                onPressed: () {
-                  showPassword = !showPassword;
-                },
-                icon: Icon(
-                  Icons.remove_red_eye,
-                  color: Colors.red[200],
-                ),
-              )
-            : null, // * This makes the icon appear only for the password field
-        contentPadding: const EdgeInsets.only(left: 15),
-        labelText: labelText,
-        // floatingLabelBehavior: FloatingLabelBehavior.always,
-        hintText: placeholder,
-        hintStyle: GoogleFonts.raleway(
-          fontSize: 16,
-          fontWeight: FontWeight.w500,
-          color: Colors.black54,
-        ),
-        labelStyle: GoogleFonts.raleway(
-          fontSize: 16,
-          fontWeight: FontWeight.w400,
-          color: Colors.black,
-          letterSpacing: .25,
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: Colors.black54, width: 0.5),
-          borderRadius: BorderRadius.circular(15),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: info, width: 1),
-          borderRadius: BorderRadius.circular(15),
-        ),
+  return TextFormField(
+    key: UniqueKey(),
+    controller: controller,
+    keyboardType: isContact == true ? TextInputType.phone : TextInputType.text,
+    decoration: InputDecoration(
+      prefixIcon: const Icon(
+        Icons.alternate_email,
+        color: Colors.black,
+        size: 20,
+      ),
+      contentPadding: const EdgeInsets.only(left: 15),
+      labelText: labelText,
+      // floatingLabelBehavior: FloatingLabelBehavior.always,
+      hintText: placeholder,
+      hintStyle: GoogleFonts.raleway(
+        fontSize: 16,
+        fontWeight: FontWeight.w500,
+        color: Colors.black54,
+      ),
+      labelStyle: GoogleFonts.raleway(
+        fontSize: 16,
+        fontWeight: FontWeight.w400,
+        color: Colors.black,
+        letterSpacing: .25,
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderSide: const BorderSide(color: Colors.black54, width: 0.5),
+        borderRadius: BorderRadius.circular(15),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderSide: const BorderSide(color: info, width: 1),
+        borderRadius: BorderRadius.circular(15),
       ),
     ),
   );
@@ -254,75 +222,6 @@ Text addSubTitle(
       fontSize: getFontSize(context, fontSize ?? 14),
       fontWeight: fontWeight ?? FontWeight.w500,
       letterSpacing: letterSpacing ?? 0.75,
-    ),
-  );
-}
-
-Widget buildTextField2(
-  String labelText,
-  String placeholder,
-  bool uneditable,
-  Widget icon,
-  TextEditingController controller, {
-  String? errorText,
-  bool? isName,
-  bool? isEmail,
-  bool? isPhone,
-  bool? showPassword,
-  bool? isAmount,
-  InputDecoration? inputDecoration,
-  Color? textfieldColor,
-  bool? isDarkMode,
-  Function(String)? onChanged,
-  void Function()? showPasswordContents,
-  String Function(String?)? validator,
-  int? maxLines,
-  Color? textColor,
-}) {
-  return Card(
-    child: TextFormField(
-      readOnly: uneditable ? true : false,
-      controller: controller,
-      obscureText: showPassword == false ? true : false,
-      keyboardType: isPhone == true
-          ? TextInputType.phone
-          : isAmount == true
-              ? const TextInputType.numberWithOptions(decimal: true)
-              : TextInputType.text,
-      validator: validator,
-      maxLines: maxLines ?? 1,
-      decoration: inputDecoration ??
-          InputDecoration(
-            labelText: labelText,
-            hintText: placeholder,
-            prefix: icon,
-            contentPadding: maxLines == 3 ? const EdgeInsets.all(15) : const EdgeInsets.only(left: 15),
-            errorText: errorText,
-            hintStyle: GoogleFonts.raleway(
-              fontSize: 14,
-              fontWeight: FontWeight.w500,
-              letterSpacing: 2,
-              color: textColor,
-            ),
-            labelStyle: GoogleFonts.raleway(
-              fontSize: 16,
-              fontWeight: FontWeight.w600,
-              letterSpacing: .25,
-              color: textColor,
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderSide: const BorderSide(color: backgroundColor, width: 0.5),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderSide: const BorderSide(color: backgroundColor, width: 1),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            errorBorder: OutlineInputBorder(
-              borderSide: const BorderSide(color: Colors.red, width: 1),
-              borderRadius: BorderRadius.circular(10),
-            ),
-          ),
     ),
   );
 }

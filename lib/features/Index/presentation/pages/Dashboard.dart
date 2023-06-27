@@ -1,9 +1,14 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:url_scan/features/Generic/presentation/pages/Login.dart';
 
 import '../../../../core/constants/colors.dart';
+import '../../../../core/constants/progressDialog.dart';
 import '../../../../core/constants/widgetFuntions.dart';
+import '../../../../core/services/api.dart';
 import '../widgets/DashboardCardComponents.dart';
 
 class Dashboard extends StatefulWidget {
@@ -28,19 +33,6 @@ class _DashboardState extends State<Dashboard> {
     // initDB();
   }
 
-  allScansCounter() async {
-    // dynamic result = await Api().scan(addressController.text);
-    // if (result['success'] == true) {
-    //   allCount += 1;
-    // }
-  }
-
-  phishingCounter() {}
-
-  safeScansCounter() {}
-
-  suspiciousScansCounter() {}
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,177 +47,129 @@ class _DashboardState extends State<Dashboard> {
             fontSize: 20,
           ),
         ),
+        actions: [
+          IconButton(
+            onPressed: () async {
+              showDialog(
+                context: context,
+                builder: (_) => const ProgressDialog(displayMessage: "Please wait..."),
+              );
+              await Future.delayed(const Duration(seconds: 2));
+              Api().logout();
+              Navigator.pop(context);
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const LoginScreen(),
+                  ));
+            },
+            icon: const Icon(Icons.logout, color: error),
+          )
+        ],
       ),
       body: RefreshIndicator(
         onRefresh: () async {},
         child: SingleChildScrollView(
           physics: const AlwaysScrollableScrollPhysics(),
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(
-                  left: 8.0,
-                  right: 8,
-                  bottom: 8,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
+          child: Padding(
+            padding: const EdgeInsets.only(
+              left: 8.0,
+              right: 8,
+              bottom: 8,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                addVertical(10),
+                Row(
                   children: [
-                    addVertical(10),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: GestureDetector(
-                            onTap: () {},
-                            child: DashboardCardComponent(
-                              icon: const Icon(
-                                Icons.home_outlined,
-                                color: info,
-                              ),
-                              label: 'All Scans',
-                              // value : totalProps.toString(),
-                              value: allCount.toString(),
-                            ),
+                    Expanded(
+                      child: GestureDetector(
+                        onTap: () {},
+                        child: DashboardCardComponent(
+                          icon: const Icon(
+                            Icons.home_outlined,
+                            color: info,
                           ),
+                          label: 'All Scans',
+                          value: allCount.toString(),
                         ),
-                        addHorizontal(10),
-                        Expanded(
-                          child: GestureDetector(
-                            onTap: () {},
-                            child: DashboardCardComponent(
-                              icon: const Icon(
-                                CupertinoIcons.wrench,
-                                color: warning,
-                              ),
-                              label: 'Phishing Scans',
-                              value: phishingCount.toString(),
-                            ),
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
-                    addVertical(10),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: GestureDetector(
-                            onTap: () {},
-                            child: DashboardCardComponent(
-                              icon: const Icon(
-                                Icons.account_balance_outlined,
-                                color: Color(0xFFBAABDA),
-                              ),
-                              label: 'Unsafe Scans',
-                              value: safeCount.toString(),
-                            ),
+                    addHorizontal(10),
+                    Expanded(
+                      child: GestureDetector(
+                        onTap: () {},
+                        child: DashboardCardComponent(
+                          icon: const Icon(
+                            CupertinoIcons.wrench,
+                            color: warning,
                           ),
+                          label: 'Phishing Scans',
+                          value: phishingCount.toString(),
                         ),
-                        addHorizontal(10),
-                        Expanded(
-                          child: GestureDetector(
-                            child: DashboardCardComponent(
-                              icon: subTextRaleway('🤔', size: 20),
-                              label: 'Suspicious Scans',
-                              value: susCount.toString(),
-                            ),
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
-                    addVertical(10),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: GestureDetector(
-                            onTap: () {},
-                            child: DashboardCardComponent(
-                              icon: const Icon(
-                                Icons.nearby_error,
-                                color: Color.fromARGB(255, 187, 60, 62),
-                              ),
-                              label: 'Malware-Infected Scans',
-                              value: malwareCount.toString(),
-                            ),
-                          ),
-                        ),
-                        addHorizontal(10),
-                        Expanded(
-                          child: GestureDetector(
-                            child: DashboardCardComponent(
-                              icon: Icon(Icons.check_box, color: Colors.teal[400]),
-                              label: 'Valid DNS Scans',
-                              value: dnsCount.toString(),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    // addVertical(10),
-                    // Row(
-                    //   children: [
-                    //     Expanded(
-                    //       child: GestureDetector(
-                    //         onTap: () {},
-                    //         child: DashboardCardComponent(
-                    //           icon: const Icon(
-                    //             Icons.account_balance_outlined,
-                    //             color: Color(0xFFBAABDA),
-                    //           ),
-                    //           label: 'Safe Scans',
-                    //           value: safeCount.toString(),
-                    //         ),
-                    //       ),
-                    //     ),
-                    //     addHorizontal(10),
-                    //     Expanded(
-                    //       child: GestureDetector(
-                    //         child: DashboardCardComponent(
-                    //           icon: const Icon(
-                    //             Icons.payment_outlined,
-                    //             color: Color(0xFFFFCCD2),
-                    //           ),
-                    //           label: 'Suspicious Scans',
-                    //           value: susCount.toString(),
-                    //         ),
-                    //       ),
-                    //     ),
-                    //   ],
-                    // ),
-                    // addVertical(10),
-                    // Row(
-                    //   children: [
-                    //     Expanded(
-                    //       child: GestureDetector(
-                    //         onTap: () {},
-                    //         child: DashboardCardComponent(
-                    //           icon: const Icon(
-                    //             Icons.account_balance_outlined,
-                    //             color: Color(0xFFBAABDA),
-                    //           ),
-                    //           label: 'Safe Scans',
-                    //           value: safeCount.toString(),
-                    //         ),
-                    //       ),
-                    //     ),
-                    //     addHorizontal(10),
-                    //     Expanded(
-                    //       child: GestureDetector(
-                    //         child: DashboardCardComponent(
-                    //           icon: const Icon(
-                    //             Icons.payment_outlined,
-                    //             color: Color(0xFFFFCCD2),
-                    //           ),
-                    //           label: 'Suspicious Scans',
-                    //           value: susCount.toString(),
-                    //         ),
-                    //       ),
-                    //     ),
-                    //   ],
-                    // ),
                   ],
                 ),
-              ),
-            ],
+                addVertical(10),
+                Row(
+                  children: [
+                    Expanded(
+                      child: GestureDetector(
+                        onTap: () {},
+                        child: DashboardCardComponent(
+                          icon: const Icon(
+                            Icons.account_balance_outlined,
+                            color: Color(0xFFBAABDA),
+                          ),
+                          label: 'Unsafe Scans',
+                          value: safeCount.toString(),
+                        ),
+                      ),
+                    ),
+                    addHorizontal(10),
+                    Expanded(
+                      child: GestureDetector(
+                        child: DashboardCardComponent(
+                          icon: subTextRaleway('🤔', size: 20),
+                          label: 'Suspicious Scans',
+                          value: susCount.toString(),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                addVertical(10),
+                Row(
+                  children: [
+                    Expanded(
+                      child: GestureDetector(
+                        onTap: () {},
+                        child: DashboardCardComponent(
+                          icon: const Icon(
+                            Icons.nearby_error,
+                            color: Color.fromARGB(255, 187, 60, 62),
+                          ),
+                          label: 'Malware-Infected Scans',
+                          value: malwareCount.toString(),
+                        ),
+                      ),
+                    ),
+                    addHorizontal(10),
+                    Expanded(
+                      child: GestureDetector(
+                        child: DashboardCardComponent(
+                          icon: Icon(Icons.check_box, color: Colors.teal[400]),
+                          label: 'Valid DNS Scans',
+                          value: dnsCount.toString(),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
